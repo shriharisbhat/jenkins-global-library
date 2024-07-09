@@ -1,0 +1,21 @@
+pipeline {
+    agent { label 'linux'}
+    tools {
+     jdk 'openjdk-11'
+     maven 'M3'
+    }
+    stages {
+        stage('Test JDK') {
+            steps {
+              sh '''
+                env | grep -e PATH -e JAVA_HOME
+                which java
+                java -version
+                mvn --version
+            
+              '''
+            }
+        }
+    }
+}
+
