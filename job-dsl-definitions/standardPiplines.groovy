@@ -21,7 +21,7 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
                 scm {
                     git {
                         remote {
-                            url("https://github.com/$values.yourUsername/$values.yourRepo.git'")
+                            url("https://github.com/$values.yourUsername/$values.yourRepo.git")
                             credentials('your-credentials-id') // If needed
                         }
                         branch(values.branches) // Or whichever branch you want to use
