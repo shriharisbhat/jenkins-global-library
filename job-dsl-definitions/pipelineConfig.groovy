@@ -1,4 +1,3 @@
-class pipelineConfig {
     static Map<String, Map<String, Object>> appPipeConfig() {
         def pipeConfig = [  
             'groot-web-app-job': [
@@ -29,4 +28,3 @@ class pipelineConfig {
 
         return pipeConfig as Map<String, Map<String, Object>>
     }
-}
