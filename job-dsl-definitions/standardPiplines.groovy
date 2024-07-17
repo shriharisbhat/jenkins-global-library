@@ -24,10 +24,10 @@ def createPipelineJob(String jobName, Map < String, Object > values) {
                             url("https://github.com/$values.yourUsername/$values.yourRepo.git'")
                             credentials('your-credentials-id') // If needed
                         }
-                        branch(values.branches ? : '*/main') // Or whichever branch you want to use
+                        branch(values.branches) // Or whichever branch you want to use
                     }
                 }
-                scriptPath(values.scriptPath ? : 'Jenkinsfile') // Path to your Jenkinsfile in the repo
+                scriptPath(values.scriptPath) // Path to your Jenkinsfile in the repo
             }
         }
 
