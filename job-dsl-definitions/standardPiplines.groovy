@@ -21,8 +21,8 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
                 scm {
                     git {
                         remote {
-                            url("https://github.com/$values.yourUsername/$values.yourRepo.git")
-                            credentials('your-credentials-id') // If needed
+                            url("https://github.com/${values.yourUsername}/${values.yourRepo}.git")
+                            credentials(values.checkoutCredentialsId) // If needed
                         }
                         branch(values.branches) // Or whichever branch you want to use
                     }
@@ -32,7 +32,7 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
         }
 
         logRotator {
-            if (soxExtendLogRotator) {
+            if (values.soxExtendLogRotator) {
                 // for SOX compliance, keep builds for 15 months
                 daysToKeep(465)
                 artifactDaysToKeep(465)
@@ -60,8 +60,8 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
                         }
                     }
 
-                    if (triggerTokenSecretId) {
-                        tokenCredentialId(triggerTokenSecretId)
+                    if (values.triggerTokenSecretId) {
+                        tokenCredentialId(values.triggerTokenSecretId)
                     } else {
                         token(values.yourRepo) // Token to authenticate the webhook
                     }
@@ -75,6 +75,7 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
     }
 }
 
-appPipeConfig.forEach { String jobName, Map<String, Object> values ->
-        createPipelineJob(jobName, values)
+// Ensure appPipeConfig is properly called and loop over it
+appPipeConfig().forEach { String jobName, Map<String, Object> values ->
+    createPipelineJob(jobName, values)
 }
