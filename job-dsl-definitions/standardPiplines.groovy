@@ -1,4 +1,4 @@
-import static pipelineConfig.pipeConfig
+import static pipelineConfig.appPipeConfig
 
 def createPipelineJob(String jobName, Map < String, Object > values) {
     pipelineJob(jobName) {
