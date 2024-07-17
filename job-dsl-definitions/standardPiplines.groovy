@@ -1,6 +1,6 @@
 import static pipelineConfig.appPipeConfig
 
-def createPipelineJob(String jobName, Map < String, Object > values) {
+def createPipelineJob(String jobName, Map<String, Object> values) {
     pipelineJob(jobName) {
         description("Pipeline for $jobName")
 
@@ -75,6 +75,6 @@ def createPipelineJob(String jobName, Map < String, Object > values) {
     }
 }
 
-appPipeConfig.forEach { String jobName, Map < String, Object > values ->
+appPipeConfig.forEach { String jobName, Map<String, Object> values ->
         createPipelineJob(jobName, values)
 }
