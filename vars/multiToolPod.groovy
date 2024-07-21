@@ -26,10 +26,13 @@ spec:
       - cat
     tty: true
   - name: kubectl
-    image: bitnami/kubectl:1.23
+    image: bitnami/kubectl:latest
     command:
       - cat
     tty: true
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
   volumes:
     - name: dind-storage
       emptyDir: {}
