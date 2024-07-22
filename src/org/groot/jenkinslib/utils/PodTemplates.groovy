@@ -1,6 +1,6 @@
 package org.groot.jenkinslib.utils
 
-public void jnlpTemplate(Map args = [: ], Closure body) {
+public void jnlpTemplate(Map args = [:], Closure body) {
   podTemplate(label: 'jnlp',
     serviceAccount: 'jenkins-k8s-jenkins',
     containers: [
@@ -13,7 +13,7 @@ public void jnlpTemplate(Map args = [: ], Closure body) {
         resourceRequestCpu: '200m',
         resourceLimitCpu: '1',
         resourceRequestMemory: '256Mi',
-        resourceLimitMemory: '1Gi'
+        resourceLimitMemory: '512Mi'
       )
     ]
   ) {
@@ -21,31 +21,56 @@ public void jnlpTemplate(Map args = [: ], Closure body) {
   }
 }
 
-public void dockerTemplate(Map args = [: ], Closure body) {
+void jnlpTemplate(Map args = [:], Closure body) {
+  def defaultArgs = [
+     name: 'jnlp',
+        image: 'jenkins/inbound-agent:3256.v88a_f6e922152-1',
+        args: '${computer.jnlpmac} ${computer.name}',
+        workingDir: '/home/jenkins/agent',
+        resourceRequestCpu: '200m',
+        resourceLimitCpu: '1',
+        resourceRequestMemory: '256Mi',
+        resourceLimitMemory: '512Mi'
+  ]
+
+  def containerArgs = defaultArgs + args
+
   podTemplate(
     containers: [
-      containerTemplate(
-        name: 'docker',
-        image: 'docker:20.10.14-dind',
-        privileged: true,
-        ttyEnabled: true,
-        envVars: [
-          envVar(key: 'DOCKER_TLS_CERTDIR', value: '')
-        ],
-        volumeMounts: [
-          emptyDirVolume(mountPath: '/var/lib/docker', name: 'dind-storage')
-        ],
-      )
-    ],
-    volumes: [
-      emptyDirVolume(mountPath: '/var/lib/docker', memory: false, name: 'dind-storage')
+      containerTemplate(containerArgs)
     ]
   ) {
     body.call()
   }
 }
 
-public void awsCliTemplate(Map args = [: ], Closure body) {
+public void dockerTemplate(Map args = [:], Closure body) {
+   podTemplate(
+        yaml: """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: docker
+    image: docker:20.10.14-dind
+    securityContext:
+      privileged: true
+    env:
+      - name: DOCKER_TLS_CERTDIR
+        value: ""
+    volumeMounts:
+      - name: dind-storage
+        mountPath: /var/lib/docker
+  volumes:
+    - name: dind-storage
+      emptyDir: {}
+"""
+  ) {
+    body.call()
+  }
+}
+
+public void awsCliTemplate(Map args = [:], Closure body) {
   def defaultArgs = [
     name: 'aws-cli',
     image: 'amazon/aws-cli:2.4.7',
@@ -66,7 +91,7 @@ public void awsCliTemplate(Map args = [: ], Closure body) {
   }
 }
 
-public void kubectlTemplate(Map args = [: ], Closure body) {
+public void kubectlTemplate(Map args = [:], Closure body) {
   def defaultArgs = [
     name: 'kubectl',
     image: 'bitnami/kubectl:latest',
