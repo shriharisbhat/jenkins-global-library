@@ -5,7 +5,7 @@ def call(Map args = [:], Closure body) {
 
   def podTemplates = new PodTemplates() // Create an instance of PodTemplates
 
-  podTemplates.jnlpTemplate {
+  // podTemplates.jnlpTemplate {
     podTemplates.dockerTemplate {
       podTemplates.awsCliTemplate {
         node(POD_LABEL) {
@@ -14,5 +14,5 @@ def call(Map args = [:], Closure body) {
         }
       }
     }
-  }
+  // }
 }
