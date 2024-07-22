@@ -6,13 +6,13 @@ def call(Map args = [:], Closure body) {
   def podTemplates = new PodTemplates() // Create an instance of PodTemplates
 
   podTemplates.jnlpTemplate {
-    podTemplates.dockerTemplate {
+    // podTemplates.dockerTemplate {
       podTemplates.awsCliTemplate {
         node(POD_LABEL) {
           sh "echo hello from $POD_LABEL"
           body()
         }
       }
-    }
+    // }
   }
 }
