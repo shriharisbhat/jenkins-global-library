@@ -50,15 +50,14 @@ public void dockerTemplate(Map args = [:], Closure body) {
 
 public void awsCliTemplate(body) {
   podTemplate(
-    // label: 'aws-cli-pod',
-    // cloud: "cloudName",
+    label: 'aws-cli-pod',
+    cloud: "cloudName",
     containers: [
       containerTemplate(
         name: 'aws-cli',
         image: 'amazon/aws-cli:2.4.7',
         command: 'cat',
         ttyEnabled: true,
-        args: '99d'
       )
     ]
   ) {
@@ -68,8 +67,8 @@ public void awsCliTemplate(body) {
 
 public void kubectlTemplate(body) {
   podTemplate(
-    // label: 'kubectl-pod',
-    // cloud: "cloudName",
+    label: 'kubectl-pod',
+    cloud: "cloudName",
     containers: [
       containerTemplate(
         name: 'kubectl',
@@ -78,7 +77,6 @@ public void kubectlTemplate(body) {
         ttyEnabled: true,
         runAsUser: '1000',
         runAsGroup: '1000',
-        args: '99d'
       )
     ]
   ) {
