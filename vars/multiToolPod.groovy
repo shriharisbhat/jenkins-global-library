@@ -6,10 +6,10 @@ def call(Map args = [:], Closure body) {
 
   def podTemplates = new PodTemplates() // Create an instance of PodTemplates
 
-  podTemplates.dockerTemplate(cloudName: cloudName) {
-    podTemplates.awsCliTemplate {
+  podTemplates.awsCliTemplate {
+    podTemplates.kubectlTemplate {
       node(POD_LABEL) {
-        sh "echo hello from $POD_LABE"
+        sh "echo hello from $POD_LABEL"
         body()
       }
     }
