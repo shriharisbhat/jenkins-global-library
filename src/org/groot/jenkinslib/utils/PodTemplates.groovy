@@ -25,7 +25,7 @@ public void jnlpTemplate(Map args = [:], Closure body) {
 public void dockerTemplate(Map args = [:], Closure body) {
   podTemplate(
     label: 'docker-pod',
-    cloud: args.cloudName,
+    cloud: "args.cloudName",
     containers: [
       containerTemplate(
         name: 'docker',
