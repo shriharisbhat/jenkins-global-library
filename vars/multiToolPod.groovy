@@ -6,12 +6,12 @@ def call(Map args = [:], Closure body) {
 
   def podTemplates = new PodTemplates() // Create an instance of PodTemplates
 
-  podTemplates.dockerTemplate(cloud: cloudName) {
+  // podTemplates.dockerTemplate(cloud: cloudName) {
     podTemplates.awsCliTemplate(cloud: cloudName) {
       node(POD_LABEL) {
         sh "echo hello from $POD_LABEL"
         body()
       }
-    }
+    // }
   }
 }
