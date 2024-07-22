@@ -1,27 +1,6 @@
 package org.groot.jenkinslib.utils
 
 public void jnlpTemplate(Map args = [:], Closure body) {
-  podTemplate(label: 'jnlp',
-    serviceAccount: 'jenkins-k8s-jenkins',
-    containers: [
-      containerTemplate(
-        name: 'jnlp',
-        image: 'jenkins/inbound-agent:3256.v88a_f6e922152-1',
-        args: '${computer.jnlpmac} ${computer.name}',
-        workingDir: '/home/jenkins/agent',
-        envVars: [],
-        resourceRequestCpu: '200m',
-        resourceLimitCpu: '1',
-        resourceRequestMemory: '256Mi',
-        resourceLimitMemory: '512Mi'
-      )
-    ]
-  ) {
-    body.call()
-  }
-}
-
-void jnlpTemplate(Map args = [:], Closure body) {
   def defaultArgs = [
      name: 'jnlp',
         image: 'jenkins/inbound-agent:3256.v88a_f6e922152-1',
