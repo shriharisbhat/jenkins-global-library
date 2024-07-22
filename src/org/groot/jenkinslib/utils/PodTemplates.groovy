@@ -25,7 +25,7 @@ public void jnlpTemplate(Map args = [:], Closure body) {
 public void dockerTemplate(Map args = [:], Closure body) {
   podTemplate(
     label: 'docker-pod',
-    cloud: "args.cloudName",
+    cloud: args.cloud,
     containers: [
       containerTemplate(
         name: 'docker',
@@ -48,10 +48,10 @@ public void dockerTemplate(Map args = [:], Closure body) {
   }
 }
 
-public void awsCliTemplate(body) {
+public void awsCliTemplate(Map args = [:], Closure body) {
   podTemplate(
-    // label: 'aws-cli-pod',
-    // cloud: "cloudName",
+    label: 'aws-cli-pod',
+    cloud: args.cloud,
     containers: [
       containerTemplate(
         name: 'aws-cli',
@@ -65,10 +65,10 @@ public void awsCliTemplate(body) {
   }
 }
 
-public void kubectlTemplate(body) {
+public void kubectlTemplate(Map args = [:], Closure body) {
   podTemplate(
-    // label: 'kubectl-pod',
-    // cloud: "cloudName",
+    label: 'kubectl-pod',
+    cloud: args.cloud,
     containers: [
       containerTemplate(
         name: 'kubectl',
