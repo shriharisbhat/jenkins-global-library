@@ -36,9 +36,8 @@ public void dockerTemplate(Map args = [:], Closure body) {
           envVar(key: 'DOCKER_TLS_CERTDIR', value: '')
         ],
         volumeMounts: [
-          volumeMount(mountPath: '/var/lib/docker', name: 'dind-storage')
+          emptyDirVolume(mountPath: '/var/lib/docker', name: 'dind-storage')
         ],
-        args: '99d'
       )
     ],
     volumes: [
