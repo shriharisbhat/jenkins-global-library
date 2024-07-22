@@ -50,7 +50,7 @@ public void dockerTemplate(Map args = [:], Closure body) {
 
 public void awsCliTemplate(Closure body) {
   podTemplate(
-    label: 'aws-cli-pod',
+    // label: 'aws-cli-pod',
     // cloud: 'kubernetes',
     containers: [
       containerTemplate(
