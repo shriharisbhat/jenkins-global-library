@@ -3,8 +3,6 @@ def call(Map args = [:], Closure body) {
     def cloudName = args.cloud ?: 'kubernetes'
 
     podTemplate(
-        label: label,
-        cloud: cloudName,
         yaml: """
 apiVersion: v1
 kind: Pod
