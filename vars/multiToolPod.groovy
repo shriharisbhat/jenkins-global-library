@@ -1,6 +1,6 @@
 import org.groot.jenkinslib.utils.PodTemplates
 
-def call(Map args = [: ], Closure body) {
+def call(Map args = [:], Closure body) {
   def label = args.label ? : "multi-tool-${UUID.randomUUID().toString()}"
   def cloudName = args.cloud ? : 'kubernetes'
 
