@@ -19,7 +19,7 @@ def sequence(List tasks) {
 def autoApproval(String namespace) {
     return { config ->
         stage("Auto Deploy ${namespace}") {
-            echo "Auto deploying to ${namespace}"
+            echo "autoApproval deploying to ${namespace}"
             // Trigger the provided doDeploy function
             if (config.doDeploy) {
                 config.doDeploy(config + [namespace: namespace])
