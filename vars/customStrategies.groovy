@@ -1,5 +1,3 @@
-
-@NonCPS
 def in_parallel(List tasks) {
     return { config ->
         def tasksMap = [:]
@@ -10,7 +8,6 @@ def in_parallel(List tasks) {
     }
 }
 
-@NonCPS
 def sequence(List tasks) {
     return { config ->
         tasks.each { task ->
@@ -19,7 +16,6 @@ def sequence(List tasks) {
     }
 }
 
-@NonCPS
 def autoApproval(String namespace) {
     return { config ->
         stage("Auto Deploy ${namespace}") {
@@ -34,7 +30,6 @@ def autoApproval(String namespace) {
     }
 }
 
-@NonCPS
 def manualApproval(String namespace) {
     return { config ->
         stage("Manual Deploy ${namespace}") {
