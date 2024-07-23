@@ -20,7 +20,7 @@ def auto(String namespace) {
     return { config ->
         stage("Auto Deploy ${namespace}") {
             echo "Auto deploying to ${namespace}"
-            deploySonicApp.doDeploy(config, namespace)
+            deployApp.doDeploy(config, namespace)
         }
     }
 }
@@ -30,7 +30,7 @@ def approval(String namespace) {
         stage("Approval Deploy ${namespace}") {
             input message: "Approve deployment to ${namespace}?", ok: "Approve"
             echo "Deploying to ${namespace}"
-            deploySonicApp.doDeploy(config, namespace)
+            deployApp.doDeploy(config, namespace)
         }
     }
 }
