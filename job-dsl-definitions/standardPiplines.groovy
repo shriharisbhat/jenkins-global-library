@@ -1,4 +1,4 @@
-import static pipelineConfig.appPipeConfig
+import static pipelineConfig.pipelineJobs
 
 def createPipelineJob(String jobName, Map<String, Object> values) {
     pipelineJob(jobName) {
@@ -33,9 +33,8 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
 
         logRotator {
             if (values.soxExtendLogRotator) {
-                // for SOX compliance, keep builds for 15 months
-                daysToKeep(465)
-                artifactDaysToKeep(465)
+                daysToKeep(365)
+                artifactDaysToKeep(365)
             } else {
                 numToKeep(100)
                 artifactNumToKeep(100)
@@ -75,7 +74,7 @@ def createPipelineJob(String jobName, Map<String, Object> values) {
     }
 }
 
-// Ensure appPipeConfig is properly called and loop over it
-appPipeConfig().forEach { String jobName, Map<String, Object> values ->
+// Ensure pipelineJobs is properly called and loop over it
+pipelineJobs().forEach { String jobName, Map<String, Object> values ->
     createPipelineJob(jobName, values)
 }

@@ -1,5 +1,5 @@
-    static Map<String, Map<String, Object>> appPipeConfig() {
-        def pipeConfig = [  
+    static Map<String, Map<String, Object>> pipelineJobs() {
+        def pipelineJobsList = [  
             'groot-web-app-job': [
                 'yourUsername': 'shriharisbhat',
                 'yourRepo': 'groot-client-app',
@@ -26,5 +26,5 @@
             ],
         ]
 
-        return pipeConfig as Map<String, Map<String, Object>>
+        return pipelineJobsList as Map<String, Map<String, Object>>
     }
