@@ -8,7 +8,7 @@ def call(Map args = [:], Closure body) {
   podTemplates.jnlpTemplate {
     podTemplates.dockerTemplate {
       podTemplates.awsCliTemplate {
-        node(POD_LABEL) {
+        node("POD_LABEL") {
           sh "echo hello from $POD_LABEL"
           body()
         }
