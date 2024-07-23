@@ -7,11 +7,9 @@ def call(Map config) {
 }
 
 def doDeploy(Map config, String namespace) {
-    steps.stage("Deploying to ${namespace}") {
-        def envConfig = getEnvironmentConfig()
-
-        steps.lock("deploy-${namespace}-${config.applicationName}") {
-            steps.echo "Locked build pipeline for deployment of ${config.applicationName}"
+    stage("Deploying to ${namespace}") {
+        lock("deploy-${namespace}-${config.applicationName}") {
+            echo "Locked build pipeline for deployment of ${config.applicationName}"
 
         }
     }
