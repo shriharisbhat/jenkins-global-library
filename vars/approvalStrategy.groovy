@@ -5,17 +5,18 @@ def executeJob(String jobName, Map config) {
     job.call(config)
 }
 
-def autoApproval(String namespace) {
+def autoApproval(String namespace, String jobName) {
     return { config ->
         stage("Auto Approval Deployment") {
             echo "Auto deploying to ${namespace}"
             // Trigger the provided doDeploy function
-            if (config.doDeploy) {
+            // if (config.doDeploy) {
                 // Call the referenced method directly
-                executeJob(jobName, config + [namespace: namespace])
-            } else {
-                error "doDeploy function not provided."
-            }
+                // executeJob(jobName, config + [namespace: namespace])
+                "${jobName}"(config + [namespace: namespace])
+            // } else {
+            //     error "doDeploy function not provided."
+            // }
         }
     }
 }
