@@ -22,7 +22,8 @@ def autoApproval(String namespace) {
             echo "autoApproval deploying to ${namespace}"
             // Trigger the provided doDeploy function
             if (config.doDeploy) {
-                config.doDeploy(config + [namespace: namespace])
+                // Call the referenced method directly
+                "${config.doDeploy}"(config + [namespace: namespace])
             } else {
                 error "doDeploy function not provided."
             }
