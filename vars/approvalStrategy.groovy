@@ -1,7 +1,6 @@
 
 def executeJob(String jobName, Map config) {
     echo "Executing job: ${jobName} for namespace: ${config.namespace}"
-    // def job = load "${jobName}.groovy"
     "${jobName}"(config)
 }
 
@@ -11,17 +10,16 @@ def autoApproval(String namespace, String jobName) {
             echo "Auto deploying to ${namespace}"
             // Trigger the provided jobName
             if (jobName) {
-               // Call the referenced method directly
+                // Trigger the job
                 executeJob(jobName, config + [namespace: namespace])
-                // "${jobName}"(config + [namespace: namespace])
             } else {
-                error "doDeploy function not provided."
+                error "jobName is not provided."
             }
         }
     }
 }
 
-def manualApproval(String namespace, int timeoutMinutes = 60) {
+def manualApproval(String namespace, String jobName, int timeoutMinutes = 60) {
     return { config ->
         stage("Manual Deploy ${namespace}") {
             def approved = false
@@ -41,10 +39,11 @@ def manualApproval(String namespace, int timeoutMinutes = 60) {
 
             if (approved) {
                 echo "Deployment to ${namespace} approved. Proceeding with deployment."
-                if (config.doDeploy) {
-                    "${config.doDeploy}"(config + [namespace: namespace])
+                if (jobName) {
+                    // Trigger the job
+                    executeJob(jobName, config + [namespace: namespace])
                 } else {
-                    error "doDeploy function not provided."
+                     error "jobName is not provided."
                 }
             } else {
                 echo "Deployment to ${namespace} was not approved."
