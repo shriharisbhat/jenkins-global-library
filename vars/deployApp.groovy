@@ -1,5 +1,5 @@
 def call(Map config) {
-    def strategy = config.strategy ?: { throw new MissingMethodException("Required strategy like parallel or sequence not defined", this.class, []) }
+    def strategyClosure = config.strategy ?: { throw new MissingMethodException("Required strategy like parallel or sequence not defined", this.class, []) }
     
     // Retrieve deployment logic
     def doDeploy = config.doDeploy
@@ -7,11 +7,11 @@ def call(Map config) {
         throw new MissingMethodException("doDeploy not defined", this.class, [])
     }
     
-    // Define the strategy closure
-    def strategyClosure = strategy()
+    // // Define the strategy closure
+    // def strategyClosure = strategy()
     
-    // Execute each task defined in the strategy, passing doDeploy to each task
-    strategyClosure.each { task ->
+    // Execute each task defined in the strategy
+    strategyClosure().each { task ->
         task(config)
     }
 }
