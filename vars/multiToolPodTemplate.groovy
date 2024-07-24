@@ -10,6 +10,7 @@ def call(Map args = [:], Closure body) {
       podTemplates.awsCliTemplate {
         node(POD_LABEL) {
           sh "echo hello from $POD_LABEL"
+          sh "echo hello from $label"
           body()
         }
       }

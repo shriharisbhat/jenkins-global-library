@@ -1,6 +1,5 @@
 def call(Map args = [:], Closure body) {
     def label = args.label ?: "multi-tool-${UUID.randomUUID().toString()}"
-    def cloudName = args.cloud ?: 'kubernetes'
 
     podTemplate(
         yaml: """
