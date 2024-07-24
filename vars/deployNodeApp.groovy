@@ -5,6 +5,7 @@ def call(Map config) {
             multiToolPod(cloud: 'kubernetes', namespace: 'jenkins') {
                container('docker') {
                   sh 'docker version'
+                //   sh 'docker pull nginx:latest'
                }
                container('aws-cli') {
                   // withCredentials([file(credentialsId: 'aws-credentials', variable: 'AWS_SHARED_CREDENTIALS_FILE')]) {
