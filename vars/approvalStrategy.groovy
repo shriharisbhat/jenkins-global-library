@@ -2,21 +2,21 @@
 def executeJob(String jobName, Map config) {
     echo "Executing job: ${jobName} for namespace: ${config.namespace}"
     def job = load "${jobName}.groovy"
-    job.call(config)
+    job(config)
 }
 
 def autoApproval(String namespace, String jobName) {
     return { config ->
         stage("Auto Approval Deployment") {
             echo "Auto deploying to ${namespace}"
-            // Trigger the provided doDeploy function
-            // if (config.doDeploy) {
-                // Call the referenced method directly
-                // executeJob(jobName, config + [namespace: namespace])
-                "${jobName}"(config + [namespace: namespace])
-            // } else {
-            //     error "doDeploy function not provided."
-            // }
+            // Trigger the provided jobName
+            if (jobName) {
+                Call the referenced method directly
+                executeJob(jobName, config + [namespace: namespace])
+                // "${jobName}"(config + [namespace: namespace])
+            } else {
+                error "doDeploy function not provided."
+            }
         }
     }
 }
