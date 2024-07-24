@@ -9,7 +9,7 @@ def call(Map config) {
     
     // Execute each task like in_parallel() or sequence() defined in the strategy, checkout deploymentStrategy.groovy
     strategyClosure().each { task ->
-        println "tasks $task"
+        println "tasks $task(config)"
         task(config)
     }
 }
