@@ -1,7 +1,7 @@
 def autoApproval(String namespace) {
     return { config ->
-        stage("Auto Deploy ${namespace}") {
-            echo "autoApproval deploying to ${namespace}"
+        stage("Auto Approval Deployment") {
+            echo "Auto deploying to ${namespace}"
             // Trigger the provided doDeploy function
             if (config.doDeploy) {
                 // Call the referenced method directly
@@ -15,7 +15,7 @@ def autoApproval(String namespace) {
 
 def manualApproval(String namespace) {
     return { config ->
-        stage("Manual Deploy ${namespace}") {
+        stage("Manual Approval Deployment") {
             input message: "Approve deployment to ${namespace}?", ok: "Approve"
             echo "Deploying to ${namespace}"
             // Trigger the provided doDeploy function
