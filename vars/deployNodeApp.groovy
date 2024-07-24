@@ -2,8 +2,30 @@ def call(Map config) {
     stage("Deploying node to ${config.namespace}") {
         lock("deploy-${config.namespace}-${config.applicationName}") {
             echo "Locked build pipeline for deployment of ${config.applicationName}"
-            node("POD_LABEL") {
-                sh "echo deploying ${config.applicationName} to ${config.namespace}"
+            multiToolPod(cloud: 'kubernetes', namespace: 'jenkins') {
+               container('docker') {
+                  sh 'docker version'
+               }
+               container('aws-cli') {
+                  // withCredentials([file(credentialsId: 'aws-credentials', variable: 'AWS_SHARED_CREDENTIALS_FILE')]) {
+                  sh 'aws --version'
+                  // sh 'aws s3 ls'
+                  // }
+               }
+               // container('kubectl') {
+               //     // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+               //          sh 'echo $HOSTNAME'
+               //          sh 'env | sort'
+               //          sh 'which kubectl || echo "kubectl not found"'
+               //          sh '''
+               //             set -x
+               //             kubectl version --client
+               //             env | sort
+               //          '''
+
+               //     // }
+               // }
+
             }
 
         }
