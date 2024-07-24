@@ -2,7 +2,7 @@
 def executeJob(String jobName, Map config) {
     echo "Executing job: ${jobName} for namespace: ${config.namespace}"
     // def job = load "${jobName}.groovy"
-    "${jobName}"(config + [namespace: namespace])
+    "${jobName}"(config)
 }
 
 def autoApproval(String namespace, String jobName) {
