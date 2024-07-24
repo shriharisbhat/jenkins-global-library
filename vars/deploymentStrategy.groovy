@@ -1,5 +1,6 @@
 def in_parallel(List tasks) {
     return { config ->
+        println "config ${config}" 
         parallel(tasks.collectEntries { task ->
             ["task-${tasks.indexOf(task)}": { task(config) }]
         })
