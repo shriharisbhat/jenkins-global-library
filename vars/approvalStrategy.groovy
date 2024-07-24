@@ -11,7 +11,7 @@ def autoApproval(String namespace, String jobName) {
             echo "Auto deploying to ${namespace}"
             // Trigger the provided jobName
             if (jobName) {
-                Call the referenced method directly
+               // Call the referenced method directly
                 executeJob(jobName, config + [namespace: namespace])
                 // "${jobName}"(config + [namespace: namespace])
             } else {
